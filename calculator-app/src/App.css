@@ -1,0 +1,13 @@
+.main-content {
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+}
+
+.card {
+  padding: 2em;
+}
+
+.read-the-docs {
+  color: #888;
+}

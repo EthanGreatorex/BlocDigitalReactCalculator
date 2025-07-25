@@ -1,0 +1,33 @@
+.display-component {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  text-align: center;
+  background-color: rgb(20, 20, 20);
+  margin-bottom: 5%;
+  border-radius: 10px;
+  min-height: fit-content;
+}
+
+.current-calculation {
+  min-height: 176px;
+  font-size: 2rem;
+  overflow: auto;
+}
+
+.delete-btn {
+  height: 5px;
+  text-align: center;
+  width: 10%;
+  background-color: transparent;
+  margin-bottom: 40px;
+  cursor: pointer;
+}
+
+.delete-btn button {
+  cursor: pointer;
+}
+
+.delete-btn button {
+  font-size: 1.2rem;
+}
