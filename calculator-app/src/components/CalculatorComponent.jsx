@@ -1,42 +1,59 @@
 import DisplayComponent from "./DisplayComponent";
 import TileComponent from "./TileComponent";
 import "../css/CalculatorComponent.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function CalculatorComponent() {
-  const calc_symbols = [
-    "C",
-    "( )",
-    "%",
-    "/",
-    "7",
-    "8",
-    "9",
-    "*",
-    "4",
-    "5",
-    "6",
-    "-",
-    "1",
-    "2",
-    "3",
-    "+",
-    "+/-",
-    "0",
-    ".",
-    "=",
-  ]
+  // const calc_symbols = [
+  //   "C",
+  //   "( )",
+  //   "%",
+  //   "/",
+  //   "7",
+  //   "8",
+  //   "9",
+  //   "*",
+  //   "4",
+  //   "5",
+  //   "6",
+  //   "-",
+  //   "1",
+  //   "2",
+  //   "3",
+  //   "+",
+  //   "+/-",
+  //   "0",
+  //   ".",
+  //   "=",
+  // ];
 
-  function Symbol(label,descriptor){
-    this.label = label;
-    this.descriptor = descriptor;
-  }
+  const calc_symbols = [
+    { label: "C", description: "Clear" },
+    { label: "( )", description: "Parentheses" },
+    { label: "%", description: "Modulo" },
+    { label: "/", description: "Divide" },
+    { label: "7", description: "Seven" },
+    { label: "8", description: "Eight" },
+    { label: "9", description: "Nine" },
+    { label: "*", description: "Multiply" },
+    { label: "4", description: "Four" },
+    { label: "5", description: "Five" },
+    { label: "6", description: "Six" },
+    { label: "-", description: "Subtract" },
+    { label: "1", description: "One" },
+    { label: "2", description: "Two" },
+    { label: "3", description: "Three" },
+    { label: "+", description: "Add" },
+    { label: "+/-", description: "Negative" },
+    { label: "0", description: "Zero" },
+    { label: ".", description: "Decimal" },
+    { label: "=", description: "Equals" },
+  ];
 
   const [calculation, setCalculation] = useState("---");
   const [hasCalculated, setHasCalculated] = useState(false);
   const [nextMinus, setNextMinus] = useState(false);
   const [hasBracket, setHasBracket] = useState(false);
-
 
   /**
    * Handles delete event
@@ -52,7 +69,9 @@ export default function CalculatorComponent() {
    * @param {MouseEvent} tile onclick event handler
    */
   const handleTileClick = (tile) => {
-    let tileLabel = tile.target.textContent;
+
+    var tileLabel = tile.target.textContent;
+
 
     if (hasCalculated) {
       setCalculation(calculation.replace("=", ""));
@@ -71,7 +90,6 @@ export default function CalculatorComponent() {
     if (tileLabel === "C") {
       setCalculation("");
     } else if (tileLabel === "( )") {
-      console.log("registered");
       if (hasBracket === false) {
         tileLabel = "(";
         setCalculation((prev) => [...prev, tileLabel]);
@@ -87,12 +105,15 @@ export default function CalculatorComponent() {
       setCalculation(`= ${calculatedAnswer}`);
       setHasCalculated(true);
     } else {
-      console.log("last");
       if (nextMinus) {
         tileLabel = `(-${tileLabel})`;
         setNextMinus(false);
       }
+      console.log("inside");
+      console.log(calculation);
+      console.log("Tile Label", tileLabel);
       setCalculation((prev) => [...prev, tileLabel]);
+      console.log(calculation);
     }
   };
 
@@ -104,12 +125,13 @@ export default function CalculatorComponent() {
       />
       <div />
       <div className="calculator-tiles">
-        {calc_symbols.map((sym) => (
+        {calc_symbols.map((symbol) => (
           <TileComponent
-            key={sym}
-            tileLabel={sym}
+            key={symbol.label}
+            tileLabel={symbol.label}
+            description={symbol.description}
             handleClick={handleTileClick}
-          />
+          ></TileComponent>
         ))}
       </div>
     </div>
