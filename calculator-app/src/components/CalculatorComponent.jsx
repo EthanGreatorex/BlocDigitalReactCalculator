@@ -1,7 +1,7 @@
 import DisplayComponent from "./DisplayComponent";
 import TileComponent from "./TileComponent";
 import "../css/CalculatorComponent.css";
-import { useEffect, useState } from "react";
+import { use, useEffect, useState } from "react";
 
 export default function CalculatorComponent() {
   // const calc_symbols = [
@@ -69,9 +69,7 @@ export default function CalculatorComponent() {
    * @param {MouseEvent} tile onclick event handler
    */
   const handleTileClick = (tile) => {
-
     var tileLabel = tile.target.textContent;
-
 
     if (hasCalculated) {
       setCalculation(calculation.replace("=", ""));
@@ -116,6 +114,61 @@ export default function CalculatorComponent() {
       console.log(calculation);
     }
   };
+
+  /**
+   * Handles keypress events for the calculator
+   * This allows users to use the keyboard for input.
+   */
+  useEffect(() => {
+    const handleKeyPress = (event) => {
+      let key = event.key;
+
+      if (key === "Enter") {
+        key = "=";
+      } else if (key === "Backspace") {
+        handleDelete();
+        return;
+      } else if (key === "Escape") {
+        setCalculation("");
+        return;
+      }
+
+      const validKeys = [
+        "C",
+        "(",
+        ")",
+        "%",
+        "/",
+        "7",
+        "8",
+        "9",
+        "*",
+        "4",
+        "5",
+        "6",
+        "-",
+        "1",
+        "2",
+        "3",
+        "+",
+        "+/-",
+        "0",
+        ".",
+        "=",
+      ];
+
+      if (validKeys.includes(key)) {
+        const tile = { target: { textContent: key } };
+        handleTileClick(tile);
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyPress);
+
+    return () => {
+      window.removeEventListener("keydown", handleKeyPress);
+    };
+  }, [calculation, hasCalculated, nextMinus, hasBracket]);
 
   return (
     <div className="calculator-container">
