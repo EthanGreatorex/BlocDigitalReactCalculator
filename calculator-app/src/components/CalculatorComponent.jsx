@@ -51,6 +51,7 @@ export default function CalculatorComponent() {
   ];
 
   const [calculation, setCalculation] = useState("---");
+  const [previousCalculation, setPreviousCalculation] = useState("");
   const [hasCalculated, setHasCalculated] = useState(false);
   const [nextMinus, setNextMinus] = useState(false);
   const [hasBracket, setHasBracket] = useState(false);
@@ -60,6 +61,7 @@ export default function CalculatorComponent() {
    */
   const handleDelete = () => {
     console.log(calculation);
+    setPreviousCalculation(calculation);
     setCalculation((prev) => prev.slice(0, prev.length - 1));
   };
 
@@ -72,6 +74,7 @@ export default function CalculatorComponent() {
     var tileLabel = tile.target.textContent;
 
     if (hasCalculated) {
+      setPreviousCalculation("");
       setCalculation(calculation.replace("=", ""));
       setHasCalculated(false);
     }
@@ -82,6 +85,7 @@ export default function CalculatorComponent() {
     }
 
     if (calculation === "---") {
+      setPreviousCalculation("");
       setCalculation("");
     }
 
@@ -100,6 +104,7 @@ export default function CalculatorComponent() {
     } else if (tileLabel === "=") {
       const formattedCalculation = calculation.join("");
       const calculatedAnswer = eval(formattedCalculation);
+      setPreviousCalculation(formattedCalculation);
       setCalculation(`= ${calculatedAnswer}`);
       setHasCalculated(true);
     } else {
@@ -175,6 +180,7 @@ export default function CalculatorComponent() {
       <DisplayComponent
         currentCalculation={calculation}
         handleDelete={handleDelete}
+        previousCalculation={previousCalculation}
       />
       <div />
       <div className="calculator-tiles">

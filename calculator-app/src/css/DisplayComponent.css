@@ -31,3 +31,13 @@
 .delete-btn button {
   font-size: 1.2rem;
 }
+
+.previous-calculation{
+  text-align: left;  
+  min-height: 67px;
+}
+
+.previous-calculation h4{
+  margin-left: 30px;
+  margin-top: 20px;
+}
