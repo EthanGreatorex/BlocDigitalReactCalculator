@@ -4,28 +4,6 @@ import "../css/CalculatorComponent.css";
 import { use, useEffect, useState } from "react";
 
 export default function CalculatorComponent() {
-  // const calc_symbols = [
-  //   "C",
-  //   "( )",
-  //   "%",
-  //   "/",
-  //   "7",
-  //   "8",
-  //   "9",
-  //   "*",
-  //   "4",
-  //   "5",
-  //   "6",
-  //   "-",
-  //   "1",
-  //   "2",
-  //   "3",
-  //   "+",
-  //   "+/-",
-  //   "0",
-  //   ".",
-  //   "=",
-  // ];
 
   const calc_symbols = [
     { label: "C", description: "Clear" },
@@ -60,7 +38,6 @@ export default function CalculatorComponent() {
    * Handles delete event
    */
   const handleDelete = () => {
-    console.log(calculation);
     setPreviousCalculation(calculation);
     setCalculation((prev) => prev.slice(0, prev.length - 1));
   };
@@ -112,11 +89,7 @@ export default function CalculatorComponent() {
         tileLabel = `(-${tileLabel})`;
         setNextMinus(false);
       }
-      console.log("inside");
-      console.log(calculation);
-      console.log("Tile Label", tileLabel);
       setCalculation((prev) => [...prev, tileLabel]);
-      console.log(calculation);
     }
   };
 
